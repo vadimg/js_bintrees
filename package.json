@@ -1,0 +1,25 @@
+{
+  "author": "Vadim Graboys <dimva13@gmail.com>",
+  "name": "bintrees",
+  "description": "Binary Search Trees",
+  "version": "0.0.1",
+  "homepage": "bitfloor.com",
+  "repository": {
+    "url": ""
+  },
+  "directories": {
+      "lib": "lib"
+  },
+  "main": "./lib/index.js",
+  "scripts": {
+    "test": "expresso ./test/test_*.js"
+  },
+  "engines": {
+    "node": "~v0.4.8"
+  },
+  "dependencies": {},
+  "devDependencies": {
+      "underscore": ">=1.1.7",
+      "expresso": ">=0.8.1"
+  }
+}
