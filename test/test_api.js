@@ -124,6 +124,15 @@ function switch_it(tree_class) {
     do_switch(9000);
 }
 
+function empty_it(tree_class) {
+    var tree = loader.new_tree(tree_class);
+
+    var it = tree.iterator();
+    assert.equal(it.next(), null);
+
+    it = tree.iterator();
+    assert.equal(it.prev(), null);
+}
 
 var TESTS = {
     clear: clear,
@@ -132,7 +141,8 @@ var TESTS = {
     minmax: minmax,
     forward_it: forward_it,
     reverse_it: reverse_it,
-    switch_it: switch_it
+    switch_it: switch_it,
+    empty_it: empty_it
 };
 
 TREES.forEach(function(tree) {
