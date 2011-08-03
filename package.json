@@ -5,7 +5,8 @@
   "version": "0.0.1",
   "homepage": "bitfloor.com",
   "repository": {
-    "url": ""
+    "type": "git",
+    "url": "git://github.com/vadimg/js_bintrees.git"
   },
   "directories": {
       "lib": "lib"
