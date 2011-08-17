@@ -50,8 +50,8 @@ Otherwise,
 When iteration reaches the end, the iterator becomes a null-iterator again.
 
 Forward iteration example:
-var it=tree.iterator(), data;
-while((item = it.next() !== null) {
+var it=tree.iterator(), item;
+while((item = it.next()) !== null) {
     // do stuff with item
 }
 
