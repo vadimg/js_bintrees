@@ -2,7 +2,7 @@
   "author": "Vadim Graboys <dimva13@gmail.com>",
   "name": "bintrees",
   "description": "Binary Search Trees",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "homepage": "bitfloor.com",
   "repository": {
     "type": "git",
