@@ -13,7 +13,7 @@
   },
   "main": "./index.js",
   "scripts": {
-    "test": "expresso ./test/test_*.js"
+    "test": "./node_modules/.bin/expresso ./test/test_*.js"
   },
   "dependencies": {},
   "devDependencies": {
