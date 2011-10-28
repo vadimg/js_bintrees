@@ -21,8 +21,8 @@ CommonJS:
     see /test/test_simple.js for more info
 
 In the browser:
-    <script src="../lib/treebase.js"></script>
-    <script src="../lib/rbtree.js"></script>
+    <script src="/path/to/treebase.js"></script>
+    <script src="/path/to/rbtree.js"></script>
     <script>
         var Tree = bintrees.RBTree;
     </script>
