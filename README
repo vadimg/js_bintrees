@@ -13,6 +13,22 @@ Trees
 * BinTree - Binary Search Tree
 * RBTree - Red-Black Tree
 
+Quickstart
+------------
+CommonJS:
+    var Tree = require('bintrees').RBTree;
+
+    see /test/test_simple.js for more info
+
+In the browser:
+    <script src="../lib/treebase.js"></script>
+    <script src="../lib/rbtree.js"></script>
+    <script>
+        var Tree = bintrees.RBTree;
+    </script>
+
+    see /test/test.html for more info
+
 Constructor
 ------------
 
