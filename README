@@ -1,7 +1,7 @@
 Binary Trees
 ============
 
-This package provides Binary and Red-Black Search Trees written in Javascript.
+This package provides Binary and Red-Black Search Trees written in Javascript. It is released under the MIT License.
 
 Binary Search Trees are a good way to store data in sorted order. A Red-Black tree is a variation of a Binary Tree that balances itself.
 
