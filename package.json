@@ -11,7 +11,7 @@
   "directories": {
       "lib": "lib"
   },
-  "main": "./lib/index.js",
+  "main": "./index.js",
   "scripts": {
     "test": "expresso ./test/test_*.js"
   },
