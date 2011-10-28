@@ -13,12 +13,12 @@
   },
   "main": "./index.js",
   "scripts": {
-    "test": "./node_modules/.bin/expresso ./test/test_*.js; ./node_modules/.bin/nodelint lib/*.js --config ./nodelint_config.js"
+    "test": "./node_modules/.bin/expresso ./test/test_*.js; ./node_modules/.bin/jshint lib/*.js"
   },
   "dependencies": {},
   "devDependencies": {
       "underscore": ">=1.1.7",
       "expresso": ">=0.8.1",
-      "nodelint": ">=0.5.1"
+      "jshint": ">=0.5.2"
   }
 }
