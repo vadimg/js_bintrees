@@ -4,6 +4,7 @@
   "description": "Binary Search Trees",
   "version": "0.0.7",
   "homepage": "bitfloor.com",
+  "keywords": ["binary tree", "red black tree", "red-black tree", "redblack tree"],
   "repository": {
     "type": "git",
     "url": "git://github.com/vadimg/js_bintrees.git"
