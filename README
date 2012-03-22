@@ -15,7 +15,9 @@ Trees
 
 Quickstart
 ------------
-CommonJS:
+node.js:
+    npm install bintrees
+
     var Tree = require('bintrees').RBTree;
 
     see /test/test_simple.js for more info
