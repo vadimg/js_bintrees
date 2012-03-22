@@ -1,4 +1,3 @@
-var assert = require('assert');
 var _ = require('underscore');
 
 var loader = require('./loader');
@@ -6,7 +5,7 @@ var loader = require('./loader');
 var SAMPLE_FILE = __dirname + '/samples/10k';
 var TREES = ['rbtree', 'bintree'];
 
-function clear(tree_class) {
+function clear(assert, tree_class) {
     var inserts = loader.get_inserts(loader.load(SAMPLE_FILE));
     var tree = loader.build_tree(tree_class, inserts);
     tree.clear();
@@ -15,7 +14,7 @@ function clear(tree_class) {
     });
 }
 
-function dup(tree_class) {
+function dup(assert, tree_class) {
     var tree = loader.new_tree(tree_class);
 
     assert.ok(tree.insert(100));
@@ -28,7 +27,7 @@ function dup(tree_class) {
     assert.ok(!tree.insert(100));
 }
 
-function nonexist(tree_class) {
+function nonexist(assert, tree_class) {
     var tree = loader.new_tree(tree_class);
 
     assert.ok(!tree.remove(100));
@@ -37,7 +36,7 @@ function nonexist(tree_class) {
     assert.ok(tree.remove(100));
 }
 
-function minmax(tree_class) {
+function minmax(assert, tree_class) {
     var tree = loader.new_tree(tree_class);
     assert.equal(tree.min(), null);
     assert.equal(tree.max(), null);
@@ -49,7 +48,7 @@ function minmax(tree_class) {
     assert.equal(tree.max(), _.max(inserts));
 }
 
-function forward_it(tree_class) {
+function forward_it(assert, tree_class) {
     var inserts = loader.get_inserts(loader.load(SAMPLE_FILE));
     var tree = loader.build_tree(tree_class, inserts);
 
@@ -71,12 +70,12 @@ function forward_it(tree_class) {
     assert.deepEqual(items, inserts);
 }
 
-function reverse_it(tree_class) {
+function reverse_it(assert, tree_class) {
     var inserts = loader.get_inserts(loader.load(SAMPLE_FILE));
     var tree = loader.build_tree(tree_class, inserts);
 
     var items = [];
-    
+
     var it=tree.iterator(), data;
     while((data = it.prev()) !== null) {
         items.push(data);
@@ -94,7 +93,7 @@ function reverse_it(tree_class) {
     assert.deepEqual(items, inserts);
 }
 
-function switch_it(tree_class) {
+function switch_it(assert, tree_class) {
     var inserts = loader.get_inserts(loader.load(SAMPLE_FILE));
     var tree = loader.build_tree(tree_class, inserts);
 
@@ -124,7 +123,7 @@ function switch_it(tree_class) {
     do_switch(9000);
 }
 
-function empty_it(tree_class) {
+function empty_it(assert, tree_class) {
     var tree = loader.new_tree(tree_class);
 
     var it = tree.iterator();
@@ -145,12 +144,17 @@ var TESTS = {
     empty_it: empty_it
 };
 
+var test_funcs = {};
 TREES.forEach(function(tree) {
     var tree_class = require('../lib/' + tree);
     for(var test in TESTS) {
-        exports[tree + "_" + test] = function() {
-            TESTS[test](tree_class);
-        }
+        (function(test) {
+            test_funcs[tree + "_" + test] = function(assert) {
+                TESTS[test](assert, tree_class);
+                assert.done();
+            }
+        })(test);
     }
 });
 
+exports.api = test_funcs;

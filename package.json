@@ -4,22 +4,28 @@
   "description": "Binary Search Trees",
   "version": "0.0.7",
   "homepage": "bitfloor.com",
-  "keywords": ["binary tree", "red black tree", "red-black tree", "redblack tree"],
+  "keywords": [
+    "binary tree",
+    "red black tree",
+    "red-black tree",
+    "redblack tree"
+  ],
   "repository": {
     "type": "git",
     "url": "git://github.com/vadimg/js_bintrees.git"
   },
   "directories": {
-      "lib": "lib"
+    "lib": "lib"
   },
   "main": "./index.js",
   "scripts": {
-    "test": "./node_modules/.bin/expresso ./test/test_*.js; ./node_modules/.bin/jshint lib/*.js"
+    "test": "./node_modules/.bin/nodeunit ./test/test_*.js && ./node_modules/.bin/jshint lib/*.js index.js"
   },
-  "dependencies": {},
+  "dependencies": {
+  },
   "devDependencies": {
-      "underscore": ">=1.1.7",
-      "expresso": ">=0.8.1",
-      "jshint": ">=0.5.2"
+    "nodeunit": "0.7.4",
+    "jshint": "0.5.9",
+    "underscore": "1.3.1"
   }
 }
