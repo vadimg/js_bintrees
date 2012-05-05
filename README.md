@@ -1,4 +1,4 @@
-Binary Trees
+Binary Trees [![Build Status](https://secure.travis-ci.org/vadimg/js_bintrees.png?branch=master)](http://travis-ci.org/vadimg/js_bintrees)
 ============
 
 This package provides Binary and Red-Black Search Trees written in Javascript. It is released under the MIT License.
@@ -16,20 +16,34 @@ Trees
 Quickstart
 ------------
 node.js:
-    npm install bintrees
 
-    var Tree = require('bintrees').RBTree;
+```
+npm install bintrees
+```
 
-    see /test/test_simple.js for more info
+```
+var Tree = require('bintrees').RBTree;
+
+var tree = new RBTree(function(a, b) { return a - b; });
+
+tree.insert(2);
+tree.insert(-3);
+```
+
+see examples/node.js for more info
 
 In the browser:
-    <script src="/path/to/treebase.js"></script>
-    <script src="/path/to/rbtree.js"></script>
-    <script>
-        var Tree = bintrees.RBTree;
-    </script>
 
-    see /test/test.html for more info
+```html
+<script src="/path/to/rbtree.js"></script>
+<script>
+    var tree = new RBTree(function(a, b) { return a - b });
+    tree.insert(0);
+    tree.insert(1);
+</script>
+```
+
+see examples/client.html for more info
 
 Constructor
 ------------

@@ -2,9 +2,8 @@
 <html>
 <head>
     <title>simple browser test</title>
-    <script src="../lib/treebase.js"></script>
-    <script src="../lib/rbtree.js"></script>
-    <script src="../lib/bintree.js"></script>
+    <script src="../dist/rbtree.js"></script>
+    <script src="../dist/bintree.js"></script>
     <script>
         function test(tree) {
             var tree = new tree(function(a,b) { return a - b; });
@@ -16,8 +15,8 @@
                 console.log(d);
             });
         }
-        test(bintrees.RBTree);
-        test(bintrees.BinTree);
+        test(RBTree);
+        test(BinTree);
     </script>
 </head>
 <body>
