@@ -229,14 +229,6 @@ require.register('bintree', '', function(global, module, exports, require, __fil
 
 var TreeBase = require('./treebase');
 
-var assert = {
-    equal: function(actual, exp, msg) {
-        if (actual != exp) {
-            throw new Error(msg);
-        }
-    }
-};
-
 function Node(data) {
     this.data = data;
     this.left = null;
@@ -263,10 +255,6 @@ function BinTree(comparator) {
 }
 
 BinTree.prototype = new TreeBase();
-
-BinTree.prototype.assert = function() {
-    return bt_assert(this._root, this._comparator) !== 0;
-};
 
 // returns true if inserted, false if duplicate
 BinTree.prototype.insert = function(data) {
@@ -343,24 +331,6 @@ BinTree.prototype.remove = function(data) {
         return false;
     }
 };
-
-function bt_assert(root, comparator) {
-    if(root === null) {
-        return true;
-    }
-    else {
-        var ln = root.left;
-        var rn = root.right;
-
-        // invalid binary search tree
-        assert.equal((ln !== null && comparator(ln.data, root.data) >= 0) ||
-                         (rn !== null && comparator(rn.data, root.data) <= 0),
-                     false,
-                     "binary tree violation");
-
-        return bt_assert(ln, comparator) && bt_assert(rn, comparator);
-    }
-}
 
 module.exports = BinTree;
 

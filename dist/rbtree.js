@@ -229,14 +229,6 @@ require.register('rbtree', '', function(global, module, exports, require, __file
 
 var TreeBase = require('./treebase');
 
-var assert = {
-    equal: function(actual, exp, msg) {
-        if (actual != exp) {
-            throw new Error(msg);
-        }
-    }
-};
-
 function Node(data) {
     this.data = data;
     this.left = null;
@@ -264,10 +256,6 @@ function RBTree(comparator) {
 }
 
 RBTree.prototype = new TreeBase();
-
-RBTree.prototype.assert = function() {
-    return rb_assert(this._root, this._comparator) !== 0;
-};
 
 // returns true if inserted, false if duplicate
 RBTree.prototype.insert = function(data) {
@@ -453,41 +441,6 @@ function single_rotate(root, dir) {
 function double_rotate(root, dir) {
     root.set_child(!dir, single_rotate(root.get_child(!dir), !dir));
     return single_rotate(root, dir);
-}
-
-function rb_assert(root, comparator) {
-    if(root === null) {
-        return 1;
-    }
-    else {
-        var ln = root.left;
-        var rn = root.right;
-
-        // red violation
-        if(is_red(root)) {
-            assert.equal(is_red(ln) || is_red(rn), false, "red violation");
-        }
-
-        var lh = rb_assert(ln, comparator);
-        var rh = rb_assert(rn, comparator);
-
-        // invalid binary search tree
-        assert.equal((ln !== null && comparator(ln.data, root.data) >= 0) ||
-                         (rn !== null && comparator(rn.data, root.data) <= 0),
-                     false,
-                     "binary tree violation");
-
-        // black height mismatch
-        assert.equal(lh !== 0 && rh !== 0 && lh !== rh, false, "black violation");
-
-        // count black links
-        if(lh !== 0 && rh !== 0) {
-            return is_red(root) ? lh : lh + 1;
-        }
-        else {
-            return 0;
-        }
-    }
 }
 
 module.exports = RBTree;
