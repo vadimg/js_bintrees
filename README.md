@@ -30,7 +30,7 @@ tree.insert(2);
 tree.insert(-3);
 ```
 
-see /test/test_simple.js for more info
+see examples/node.js for more info
 
 In the browser:
 
@@ -43,7 +43,7 @@ In the browser:
 </script>
 ```
 
-see /test/test.html for more info
+see examples/client.html for more info
 
 Constructor
 ------------
