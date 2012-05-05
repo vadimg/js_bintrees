@@ -21,7 +21,7 @@ node.js:
 npm install bintrees
 ```
 
-```
+```javascript
 var Tree = require('bintrees').RBTree;
 
 var tree = new RBTree(function(a, b) { return a - b; });
@@ -82,9 +82,12 @@ Otherwise,
 When iteration reaches the end, the iterator becomes a null-iterator again.
 
 Forward iteration example:
+
+```javascript
 var it=tree.iterator(), item;
 while((item = it.next()) !== null) {
     // do stuff with item
 }
+```
 
 If you are iterating forward through the tree, you can always call prev() to go back, and vice versa.
