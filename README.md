@@ -18,25 +18,32 @@ Quickstart
 node.js:
 
 ```
-    npm install bintrees
+npm install bintrees
 ```
 
 ```
-    var Tree = require('bintrees').RBTree;
+var Tree = require('bintrees').RBTree;
+
+var tree = new RBTree(function(a, b) { return a - b; });
+
+tree.insert(2);
+tree.insert(-3);
 ```
 
-    see /test/test_simple.js for more info
+see /test/test_simple.js for more info
 
 In the browser:
 
 ```html
-    <script src="/path/to/rbtree.js"></script>
-    <script>
-        var Tree = new RBTree();
-    </script>
+<script src="/path/to/rbtree.js"></script>
+<script>
+    var tree = new RBTree(function(a, b) { return a - b });
+    tree.insert(0);
+    tree.insert(1);
+</script>
 ```
 
-    see /test/test.html for more info
+see /test/test.html for more info
 
 Constructor
 ------------
