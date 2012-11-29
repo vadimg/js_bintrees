@@ -1,59 +1,18 @@
-var BinTree = (function() {
-function require(name) {
-
-    // use the offset for relative paths only
-    if (require.offset && name[0] === '.') {
-        name = require.offset + name;
+BinTree = (function(window) {
+var global = window;
+var require = function(name) {
+    var fn = require.m[name];
+    if (fn.mod) {
+        return fn.mod.exports;
     }
 
-    // is the name aliased?
-    name = require._aliases[name] || name;
-
-    var details = require._modules[name];
-
-    // uh oh
-    if (!details || !details.fn) {
-        throw new Error('no such module: ' + name);
-    }
-
-    // already loaded
-    if (details.module) {
-        return details.module.exports;
-    }
-
-    var previous = require.offset;
-    require.offset = details.offset;
-
-    // provide empty stub for exports
-    var module = details.module = {
-        exports: {}
-    };
-
-    if (!require.main) {
-        require.main = module;
-    }
-
-    details.fn.call(window, window, module, module.exports, require);
-    require.offset = previous;
-    return module.exports;
-}
-
-require.register = function(name, offset, fn) {
-    require._modules[name] = {
-        offset: offset,
-        fn: fn
-    };
+    var mod = fn.mod = { exports: {} };
+    fn(mod, mod.exports);
+    return mod.exports;
 };
 
-require.alias = function(name, alias) {
-    require._aliases[name] = alias;
-}
-
-require._aliases = {};
-require._modules = {};
-
-
-require.register('./treebase', '', function(global, module, exports, require, __filename, __dirname) {
+require.m = {};
+require.m['./treebase'] = function(module, exports) {
 
 function TreeBase() {}
 
@@ -223,16 +182,15 @@ Iterator.prototype._maxNode = function(start) {
 
 module.exports = TreeBase;
 
-});
-
-require.register('bintree', '', function(global, module, exports, require, __filename, __dirname) {
-
-var TreeBase = require('./treebase');
-
+};
+require.m['./node'] = function(module, exports) {
 function Node(data) {
     this.data = data;
     this.left = null;
     this.right = null;
+
+    // used by the rbtree
+    this.red = true;
 }
 
 Node.prototype.get_child = function(dir) {
@@ -247,6 +205,14 @@ Node.prototype.set_child = function(dir, val) {
         this.left = val;
     }
 };
+
+module.exports = Node;
+
+};
+require.m['__main__'] = function(module, exports) {
+
+var TreeBase = require('./treebase');
+var Node = require('./node');
 
 function BinTree(comparator) {
     this._root = null;
@@ -334,6 +300,6 @@ BinTree.prototype.remove = function(data) {
 
 module.exports = BinTree;
 
-});
-return require('bintree');
-})();
+};
+return require('__main__');
+})(window);

@@ -1,7 +1,22 @@
 
-all: lib/rbtree.js lib/bintree.js lib/treebase.js
-	./node_modules/.bin/script --name RBTree ./lib/rbtree.js > dist/rbtree.js
-	./node_modules/.bin/script --name BinTree ./lib/bintree.js > dist/bintree.js
-	./node_modules/.bin/script --name RBTree --minify ./lib/rbtree.js > dist/rbtree.min.js
-	./node_modules/.bin/script --name BinTree --minify ./lib/bintree.js > dist/bintree.min.js
+all: dist/rbtree.min.js dist/bintree.min.js
+
+dist/rbtree.js: lib/rbtree.js lib/treebase.js lib/node.js
+	./node_modules/.bin/reunion --ns RBTree $< > $@
+
+dist/bintree.js: lib/bintree.js lib/treebase.js lib/node.js
+	./node_modules/.bin/reunion --ns BinTree $< > $@
+
+dist/bintree.min.js: dist/bintree.js
+	curl --data-urlencode "js_code@$<" \
+		-d "output_info=compiled_code&compilation_level=SIMPLE_OPTIMIZATIONS" \
+		http://closure-compiler.appspot.com/compile \
+		> $@
+
+dist/rbtree.min.js: dist/rbtree.js
+	curl --data-urlencode "js_code@$<" \
+		-d "output_info=compiled_code&compilation_level=SIMPLE_OPTIMIZATIONS" \
+		http://closure-compiler.appspot.com/compile \
+		> $@
+
 
