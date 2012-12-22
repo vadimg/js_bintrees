@@ -19,7 +19,7 @@
   },
   "main": "./index.js",
   "scripts": {
-    "test": "nodeunit ./test/test_*.js && ./node_modules/.bin/jshint lib/*.js index.js"
+    "test": "nodeunit ./test/test_*.js && jshint lib/*.js index.js"
   },
   "dependencies": {
   },
