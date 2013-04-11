@@ -133,6 +133,27 @@ function empty_it(assert, tree_class) {
     assert.equal(it.prev(), null);
 }
 
+function lower_bound(assert, tree_class) {
+    var inserts = loader.get_inserts(loader.load(SAMPLE_FILE));
+    var tree = loader.build_tree(tree_class, inserts);
+  
+  
+    inserts.sort(function(a,b) { return a - b; });
+  
+    for(var i=1; i<inserts.length-1; ++i) {
+      var item = inserts[i]
+      
+      var iter = tree.lowerBound(item)
+      assert.equal(iter.data(), item)
+      assert.equal(iter.prev(), inserts[i-1])
+      iter.next()
+      assert.equal(iter.next(), inserts[i+1])
+      
+      var prev = tree.lowerBound(item-1)
+      assert.equal(prev.data(), inserts[i-1])
+    }
+}
+
 var TESTS = {
     clear: clear,
     dup: dup,
@@ -141,7 +162,8 @@ var TESTS = {
     forward_it: forward_it,
     reverse_it: reverse_it,
     switch_it: switch_it,
-    empty_it: empty_it
+    empty_it: empty_it,
+    lower_bound: lower_bound
 };
 
 var test_funcs = {};
