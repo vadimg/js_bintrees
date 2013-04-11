@@ -102,7 +102,7 @@ function switch_it(assert, tree_class) {
     function do_switch(after) {
         var items = [];
         var it = tree.iterator();
-        for(var i =0; i < after; i++) {
+        for(var i = 0; i < after; i++) {
             items.push(it.next());
         }
 
@@ -133,6 +133,53 @@ function empty_it(assert, tree_class) {
     assert.equal(it.prev(), null);
 }
 
+function lower_bound(assert, tree_class) {
+    var inserts = loader.get_inserts(loader.load(SAMPLE_FILE));
+    var tree = loader.build_tree(tree_class, inserts);
+
+    inserts.sort(function(a,b) { return a - b; });
+
+    for(var i=1; i<inserts.length-1; ++i) {
+        var item = inserts[i];
+
+        var iter = tree.lowerBound(item);
+        assert.equal(iter.data(), item);
+        assert.equal(iter.prev(), inserts[i-1]);
+        iter.next();
+        assert.equal(iter.next(), inserts[i+1]);
+
+        var prev = tree.lowerBound(item - 0.1);
+        assert.equal(prev.data(), inserts[i-1]);
+
+        var next = tree.lowerBound(item + 0.1);
+        assert.equal(next.data(), inserts[i]);
+    }
+}
+
+function upper_bound(assert, tree_class) {
+    var inserts = loader.get_inserts(loader.load(SAMPLE_FILE));
+    var tree = loader.build_tree(tree_class, inserts);
+
+    inserts.sort(function(a,b) { return a - b; });
+
+    for(var i=1; i<inserts.length-1; ++i) {
+        var item = inserts[i];
+
+        var iter = tree.upperBound(item);
+        assert.equal(iter.data(), item);
+        assert.equal(iter.prev(), inserts[i-1]);
+        iter.next();
+        assert.equal(iter.next(), inserts[i+1]);
+
+        var prev = tree.upperBound(item - 0.1);
+        assert.equal(prev.data(), inserts[i]);
+
+        var next = tree.upperBound(item + 0.1);
+        assert.equal(next.data(), inserts[i+1]);
+    }
+}
+
+
 var TESTS = {
     clear: clear,
     dup: dup,
@@ -141,7 +188,9 @@ var TESTS = {
     forward_it: forward_it,
     reverse_it: reverse_it,
     switch_it: switch_it,
-    empty_it: empty_it
+    empty_it: empty_it,
+    lower_bound: lower_bound,
+    upper_bound: upper_bound
 };
 
 var test_funcs = {};

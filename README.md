@@ -60,6 +60,8 @@ Methods
 * remove(item)
 * clear()
 * find(item)
+* lowerBound(item)
+* upperBound(item)
 * min()
 * max()
 * each(f)

@@ -39,6 +39,22 @@ TreeBase.prototype.find = function(data) {
     return null;
 };
 
+// Returns an interator to the tree node immediately before (or at) the element
+TreeBase.prototype.lowerBound = function(data) {
+    return this._bound(data, this._comparator);
+};
+
+// Returns an interator to the tree node immediately after (or at) the element
+TreeBase.prototype.upperBound = function(data) {
+    var cmp = this._comparator;
+
+    function reverse_cmp(a, b) {
+        return cmp(b, a);
+    }
+
+    return this._bound(data, reverse_cmp);
+};
+
 // returns null if tree is empty
 TreeBase.prototype.min = function() {
     var res = this._root;
@@ -88,6 +104,35 @@ TreeBase.prototype.reach = function(cb) {
         cb(data);
     }
 };
+
+// used for lowerBound and upperBound
+TreeBase.prototype._bound = function(data, cmp) {
+    var cur = this._root;
+    var iter = this.iterator();
+
+    while(cur !== null) {
+        var c = this._comparator(data, cur.data);
+        if(c === 0) {
+            iter._cursor = cur;
+            return iter;
+        }
+        iter._ancestors.push(cur);
+        cur = cur.get_child(c > 0);
+    }
+
+    for(var i=iter._ancestors.length - 1; i >= 0; --i) {
+        cur = iter._ancestors[i];
+        if(cmp(data, cur.data) > 0) {
+            iter._cursor = cur;
+            iter._ancestors.length = i;
+            return iter;
+        }
+    }
+
+    iter._ancestors.length = 0;
+    return iter;
+};
+
 
 function Iterator(tree) {
     this._tree = tree;
