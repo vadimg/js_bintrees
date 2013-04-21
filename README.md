@@ -56,20 +56,44 @@ Requires 1 argument: a comparator function f(a,b) which returns:
 Methods
 ------------
 
-* insert(item)
-* remove(item)
-* clear()
-* find(item)
-* findIter(item)
-* lowerBound(item)
-* upperBound(item)
-* min()
-* max()
-* each(f)
-* reach(f)
-* iterator()
+### insert(item)
+> Inserts the item into the tree. Returns true if inserted, false if duplicate.
 
-See the comments inside the lib directory for more info.
+### remove(item)
+> Removes the item from the tree. Returns true if removed, false if not found.
+
+### size
+> Number of nodes in the tree.
+
+### clear()
+> Removes all nodes from the tree.
+
+### find(item)
+> Returns node data if found, null otherwise.
+
+### findIter(item)
+> Returns an iterator to the node if found, null otherwise.
+
+### lowerBound(item)
+> Returns an interator to the tree node immediately before (or at) the element. Returns null-iterator if tree is empty.
+
+### upperBound(item)
+> Returns an interator to the tree node immediately after (or at) the element. Returns null-iterator if tree is empty.
+
+### min()
+> Returns the min node data in the tree, or null if the tree is empty.
+
+### max()
+> Returns the max node data in the tree, or null if the tree is empty.
+
+### each(f)
+> Calls f on each node's data, in order.
+
+### reach(f)
+> Calls f on each node's data, in reverse order.
+
+### iterator()
+> Returns a null-iterator. See __Iterators__ section below.
 
 Iterators
 ------------
@@ -94,3 +118,5 @@ while((item = it.next()) !== null) {
 ```
 
 If you are iterating forward through the tree, you can always call prev() to go back, and vice versa.
+
+__NOTE:__ iterators become invalid when you add or remove elements from the tree.
