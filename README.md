@@ -60,6 +60,7 @@ Methods
 * remove(item)
 * clear()
 * find(item)
+* findIter(item)
 * lowerBound(item)
 * upperBound(item)
 * min()

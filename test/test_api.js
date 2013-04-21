@@ -191,6 +191,25 @@ function find(assert, tree_class) {
     }
 }
 
+function find_iter(assert, tree_class) {
+    var inserts = loader.get_inserts(loader.load(SAMPLE_FILE));
+    var tree = loader.build_tree(tree_class, inserts);
+
+    inserts.sort(function(a,b) { return a - b; });
+
+    for(var i=1; i<inserts.length-1; ++i) {
+        var item = inserts[i];
+
+        var iter = tree.findIter(item);
+        assert.equal(iter.data(), item);
+        assert.equal(iter.prev(), inserts[i-1]);
+        iter.next();
+        assert.equal(iter.next(), inserts[i+1]);
+
+        assert.equal(tree.findIter(item + 0.1), null);
+    }
+}
+
 
 var TESTS = {
     clear: clear,
@@ -203,7 +222,8 @@ var TESTS = {
     empty_it: empty_it,
     lower_bound: lower_bound,
     upper_bound: upper_bound,
-    find: find
+    find: find,
+    find_iter: find_iter
 };
 
 var test_funcs = {};
