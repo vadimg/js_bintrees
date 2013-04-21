@@ -179,6 +179,18 @@ function upper_bound(assert, tree_class) {
     }
 }
 
+function find(assert, tree_class) {
+    var inserts = loader.get_inserts(loader.load(SAMPLE_FILE));
+    var tree = loader.build_tree(tree_class, inserts);
+
+    for(var i=1; i<inserts.length-1; ++i) {
+        var item = inserts[i];
+
+        assert.equal(tree.find(item), item);
+        assert.equal(tree.find(item + 0.1), null);
+    }
+}
+
 
 var TESTS = {
     clear: clear,
@@ -190,7 +202,8 @@ var TESTS = {
     switch_it: switch_it,
     empty_it: empty_it,
     lower_bound: lower_bound,
-    upper_bound: upper_bound
+    upper_bound: upper_bound,
+    find: find
 };
 
 var test_funcs = {};
