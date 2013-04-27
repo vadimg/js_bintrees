@@ -154,6 +154,15 @@ function lower_bound(assert, tree_class) {
         var next = tree.lowerBound(item + 0.1);
         assert.equal(next.data(), inserts[i+1]);
     }
+
+    // test edges
+    var iter = tree.lowerBound(-1);
+    assert.equal(iter.data(), inserts[0]);
+    var last = inserts[inserts.length - 1];
+    iter = tree.lowerBound(last);
+    assert.equal(iter.data(), last);
+    iter = tree.lowerBound(last + 1);
+    assert.equal(iter.data(), null);
 }
 
 function upper_bound(assert, tree_class) {
@@ -177,6 +186,15 @@ function upper_bound(assert, tree_class) {
         var next = tree.upperBound(item + 0.1);
         assert.equal(next.data(), inserts[i+1]);
     }
+
+    // test edges
+    var iter = tree.upperBound(-1);
+    assert.equal(iter.data(), inserts[0]);
+    var last = inserts[inserts.length - 1];
+    iter = tree.upperBound(last);
+    assert.equal(iter.data(), null);
+    iter = tree.upperBound(last + 1);
+    assert.equal(iter.data(), null);
 }
 
 function find(assert, tree_class) {
