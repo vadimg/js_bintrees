@@ -37,7 +37,7 @@ In the browser:
 ```html
 <script src="/path/to/rbtree.js"></script>
 <script>
-    var tree = new RBTree(function(a, b) { return a - b });
+    var tree = new RBTree(function(a, b) { return a - b; });
     tree.insert(0);
     tree.insert(1);
 </script>
@@ -75,10 +75,12 @@ Methods
 > Returns an iterator to the node if found, null otherwise.
 
 ### lowerBound(item)
-> Returns an interator to the tree node immediately before (or at) the element. Returns null-iterator if tree is empty.
+> Returns an interator to the tree node at or immediately after the item. Returns null-iterator if tree is empty.
+>> __NOTE: Changed in version 1.0.0 to match C++ lower_bound__
 
 ### upperBound(item)
-> Returns an interator to the tree node immediately after (or at) the element. Returns null-iterator if tree is empty.
+> Returns an interator to the tree node immediately after the item. Returns null-iterator if tree is empty.
+>> __NOTE: Changed in version 1.0.0 to match C++ upper_bound__
 
 ### min()
 > Returns the min node data in the tree, or null if the tree is empty.

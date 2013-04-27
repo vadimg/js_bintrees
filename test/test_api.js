@@ -149,10 +149,10 @@ function lower_bound(assert, tree_class) {
         assert.equal(iter.next(), inserts[i+1]);
 
         var prev = tree.lowerBound(item - 0.1);
-        assert.equal(prev.data(), inserts[i-1]);
+        assert.equal(prev.data(), inserts[i]);
 
         var next = tree.lowerBound(item + 0.1);
-        assert.equal(next.data(), inserts[i]);
+        assert.equal(next.data(), inserts[i+1]);
     }
 }
 
@@ -162,14 +162,14 @@ function upper_bound(assert, tree_class) {
 
     inserts.sort(function(a,b) { return a - b; });
 
-    for(var i=1; i<inserts.length-1; ++i) {
+    for(var i=0; i<inserts.length-2; ++i) {
         var item = inserts[i];
 
         var iter = tree.upperBound(item);
-        assert.equal(iter.data(), item);
-        assert.equal(iter.prev(), inserts[i-1]);
+        assert.equal(iter.data(), inserts[i+1]);
+        assert.equal(iter.prev(), inserts[i]);
         iter.next();
-        assert.equal(iter.next(), inserts[i+1]);
+        assert.equal(iter.next(), inserts[i+2]);
 
         var prev = tree.upperBound(item - 0.1);
         assert.equal(prev.data(), inserts[i]);
