@@ -22,7 +22,7 @@ npm install bintrees
 ```
 
 ```javascript
-var Tree = require('bintrees').RBTree;
+var RBTree = require('bintrees').RBTree;
 
 var tree = new RBTree(function(a, b) { return a - b; });
 
