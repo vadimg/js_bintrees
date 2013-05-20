@@ -107,6 +107,7 @@ tree.iterator() will return a null-iterator. On a null iterator,
 Otherwise,
 * next() will return the next element
 * prev() will return the previous element
+* data() will return the node the iterator is pointing to
 
 When iteration reaches the end, the iterator becomes a null-iterator again.
 
