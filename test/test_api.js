@@ -195,6 +195,11 @@ function upper_bound(assert, tree_class) {
     assert.equal(iter.data(), null);
     iter = tree.upperBound(last + 1);
     assert.equal(iter.data(), null);
+
+    // test empty
+    var empty = new tree_class(function(a,b) { return a.val - b.val });
+    var iter = empty.upperBound({val:0});
+    assert.equal(iter.data(), null);
 }
 
 function find(assert, tree_class) {
