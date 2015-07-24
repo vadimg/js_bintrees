@@ -2,7 +2,7 @@
   "author": "Vadim Graboys <dimva13@gmail.com>",
   "name": "bintrees",
   "description": "Binary Search Trees",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "keywords": [
     "binary tree",
     "red black tree",
