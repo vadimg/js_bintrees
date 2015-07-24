@@ -75,11 +75,11 @@ Methods
 > Returns an iterator to the node if found, null otherwise.
 
 ### lowerBound(item)
-> Returns an interator to the tree node at or immediately after the item. Returns null-iterator if tree is empty.
+> Returns an iterator to the tree node at or immediately after the item. Returns null-iterator if tree is empty.
 >> __NOTE: Changed in version 1.0.0 to match C++ lower_bound__
 
 ### upperBound(item)
-> Returns an interator to the tree node immediately after the item. Returns null-iterator if tree is empty.
+> Returns an iterator to the tree node immediately after the item. Returns null-iterator if tree is empty.
 >> __NOTE: Changed in version 1.0.0 to match C++ upper_bound__
 
 ### min()
