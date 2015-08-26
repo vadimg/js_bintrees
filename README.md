@@ -123,3 +123,8 @@ while((item = it.next()) !== null) {
 If you are iterating forward through the tree, you can always call prev() to go back, and vice versa.
 
 __NOTE:__ iterators become invalid when you add or remove elements from the tree.
+
+## Production Usage
+
+* [Coinbase Exchange](https://exchange.coinbase.com/), since Jan 26, 2015.
+* If you are using this in production, please let me know! (add your company to this README in a pull request)
