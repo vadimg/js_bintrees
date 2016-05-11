@@ -70,6 +70,33 @@ function forward_it(assert, tree_class) {
     assert.deepEqual(items, inserts);
 }
 
+function forward_it_break(assert, tree_class) {
+    var inserts = loader.get_inserts(loader.load(SAMPLE_FILE));
+    var tree = loader.build_tree(tree_class, inserts);
+
+    var items = [];
+    var it=tree.iterator(), data;
+    while((data = it.next()) !== null) {
+        items.push(data);
+    }
+
+    inserts.sort(function(a,b) { return a - b; });
+
+    assert.deepEqual(items, inserts);
+
+    items = [];
+    var i = 0;
+    tree.each(function(data) {
+        items.push(data);
+        if (i === 3) {
+            return false;
+        }
+        i++;
+    });
+
+    assert.equal(items.length, 4);
+}
+
 function reverse_it(assert, tree_class) {
     var inserts = loader.get_inserts(loader.load(SAMPLE_FILE));
     var tree = loader.build_tree(tree_class, inserts);
@@ -91,6 +118,34 @@ function reverse_it(assert, tree_class) {
     });
 
     assert.deepEqual(items, inserts);
+}
+
+function reverse_it_break(assert, tree_class) {
+    var inserts = loader.get_inserts(loader.load(SAMPLE_FILE));
+    var tree = loader.build_tree(tree_class, inserts);
+
+    var items = [];
+
+    var it=tree.iterator(), data;
+    while((data = it.prev()) !== null) {
+        items.push(data);
+    }
+
+    inserts.sort(function(a,b) { return b - a; });
+
+    assert.deepEqual(items, inserts);
+
+    items = [];
+    var i = 0;
+    tree.reach(function(data) {
+        items.push(data);
+        if (i === 3) {
+            return false;
+        }
+        i++;
+    });
+
+    assert.equal(items.length, 4);
 }
 
 function switch_it(assert, tree_class) {
@@ -240,7 +295,9 @@ var TESTS = {
     nonexist: nonexist,
     minmax: minmax,
     forward_it: forward_it,
+    forward_it_break: forward_it_break,
     reverse_it: reverse_it,
+    reverse_it_break: reverse_it_break,
     switch_it: switch_it,
     empty_it: empty_it,
     lower_bound: lower_bound,
