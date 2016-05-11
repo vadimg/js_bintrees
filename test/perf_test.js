@@ -4,7 +4,7 @@ var loader = require('./loader');
 
 var NUM_TIMES = 10;
 var BASE_DIR = __dirname + '/perf';
-var TREES = ['rbtree', 'bintree'];
+var TREES = ['../test/arrtree', 'rbtree', 'bintree'];
 
 function mean(arr) {
     var sum = 0;
