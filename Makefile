@@ -8,15 +8,9 @@ dist/bintree.js: lib/bintree.js lib/treebase.js
 	./node_modules/.bin/reunion --ns BinTree $< > $@
 
 dist/bintree.min.js: dist/bintree.js
-	curl --data-urlencode "js_code@$<" \
-		-d "output_info=compiled_code&compilation_level=SIMPLE_OPTIMIZATIONS" \
-		http://closure-compiler.appspot.com/compile \
-		> $@
+	./node_modules/uglify-js/bin/uglifyjs $< -c -m -o $@
 
 dist/rbtree.min.js: dist/rbtree.js
-	curl --data-urlencode "js_code@$<" \
-		-d "output_info=compiled_code&compilation_level=SIMPLE_OPTIMIZATIONS" \
-		http://closure-compiler.appspot.com/compile \
-		> $@
+	./node_modules/uglify-js/bin/uglifyjs $< -c -m -o $@
 
 

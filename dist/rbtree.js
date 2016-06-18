@@ -138,7 +138,9 @@ TreeBase.prototype.iterator = function() {
 TreeBase.prototype.each = function(cb) {
     var it=this.iterator(), data;
     while((data = it.next()) !== null) {
-        cb(data);
+        if(cb(data) === false) {
+            return;
+        }
     }
 };
 
@@ -146,7 +148,9 @@ TreeBase.prototype.each = function(cb) {
 TreeBase.prototype.reach = function(cb) {
     var it=this.iterator(), data;
     while((data = it.prev()) !== null) {
-        cb(data);
+        if(cb(data) === false) {
+            return;
+        }
     }
 };
 
