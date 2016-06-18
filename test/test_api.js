@@ -1,5 +1,3 @@
-var _ = require('underscore');
-
 var loader = require('./loader');
 
 var SAMPLE_FILE = __dirname + '/samples/10k';
@@ -44,8 +42,8 @@ function minmax(assert, tree_class) {
     var inserts = loader.get_inserts(loader.load(SAMPLE_FILE));
     tree = loader.build_tree(tree_class, inserts);
 
-    assert.equal(tree.min(), _.min(inserts));
-    assert.equal(tree.max(), _.max(inserts));
+    assert.equal(tree.min(), Math.min.apply(Math, inserts));
+    assert.equal(tree.max(), Math.max.apply(Math, inserts));
 }
 
 function forward_it(assert, tree_class) {
