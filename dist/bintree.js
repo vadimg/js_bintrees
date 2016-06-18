@@ -297,7 +297,6 @@ BinTree.prototype.insert = function(data) {
             // insert new node at the bottom
             node = new Node(data);
             p.set_child(dir, node);
-            ret = true;
             this.size++;
             return true;
         }

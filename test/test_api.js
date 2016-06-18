@@ -159,6 +159,7 @@ function switch_it(assert, tree_class) {
             items.push(it.next());
         }
 
+        var data;
         while((data = it.prev()) !== null) {
             items.push(data);
         }
@@ -189,13 +190,14 @@ function empty_it(assert, tree_class) {
 function lower_bound(assert, tree_class) {
     var inserts = loader.get_inserts(loader.load(SAMPLE_FILE));
     var tree = loader.build_tree(tree_class, inserts);
+    var iter;
 
     inserts.sort(function(a,b) { return a - b; });
 
     for(var i=1; i<inserts.length-1; ++i) {
         var item = inserts[i];
 
-        var iter = tree.lowerBound(item);
+        iter = tree.lowerBound(item);
         assert.equal(iter.data(), item);
         assert.equal(iter.prev(), inserts[i-1]);
         iter.next();
@@ -209,7 +211,7 @@ function lower_bound(assert, tree_class) {
     }
 
     // test edges
-    var iter = tree.lowerBound(-1);
+    iter = tree.lowerBound(-1);
     assert.equal(iter.data(), inserts[0]);
     var last = inserts[inserts.length - 1];
     iter = tree.lowerBound(last);
@@ -221,13 +223,14 @@ function lower_bound(assert, tree_class) {
 function upper_bound(assert, tree_class) {
     var inserts = loader.get_inserts(loader.load(SAMPLE_FILE));
     var tree = loader.build_tree(tree_class, inserts);
+    var iter;
 
     inserts.sort(function(a,b) { return a - b; });
 
     for(var i=0; i<inserts.length-2; ++i) {
         var item = inserts[i];
 
-        var iter = tree.upperBound(item);
+        iter = tree.upperBound(item);
         assert.equal(iter.data(), inserts[i+1]);
         assert.equal(iter.prev(), inserts[i]);
         iter.next();
@@ -241,7 +244,7 @@ function upper_bound(assert, tree_class) {
     }
 
     // test edges
-    var iter = tree.upperBound(-1);
+    iter = tree.upperBound(-1);
     assert.equal(iter.data(), inserts[0]);
     var last = inserts[inserts.length - 1];
     iter = tree.upperBound(last);
@@ -251,7 +254,7 @@ function upper_bound(assert, tree_class) {
 
     // test empty
     var empty = new tree_class(function(a,b) { return a.val - b.val });
-    var iter = empty.upperBound({val:0});
+    iter = empty.upperBound({val:0});
     assert.equal(iter.data(), null);
 }
 

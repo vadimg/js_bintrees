@@ -18,13 +18,22 @@
   },
   "main": "./index.js",
   "scripts": {
-    "test": "nodeunit ./test/test_*.js && jshint lib/*.js index.js"
+    "pretest": "eslint lib/*.js index.js test/*.js",
+    "test": "nodeunit ./test/test_*.js"
   },
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
+    "eslint": "^2.13.0",
     "nodeunit": "0.9.1",
-    "jshint": "0.5.9",
-    "reunion": "0.0.0"
+    "reunion": "0.0.1"
+  },
+  "eslintConfig": {
+    "extends": "eslint:recommended",
+    "env": {
+      "node": true
+    },
+    "rules": {
+      "no-constant-condition": 0
+    }
   }
 }
