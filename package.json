@@ -23,9 +23,9 @@
   },
   "dependencies": {},
   "devDependencies": {
+    "browserify": "^13.0.1",
     "eslint": "^2.13.0",
     "nodeunit": "0.9.1",
-    "reunion": "0.0.1",
     "uglify-js": "^2.6.2"
   },
   "eslintConfig": {
