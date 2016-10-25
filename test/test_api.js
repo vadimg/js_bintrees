@@ -55,7 +55,7 @@ function get(assert, tree_class) {
     remove.forEach(function(r) {
         tree.remove(r);
     });
-    inserts.sort((a, b) => a - b);
+    inserts.sort(function(a,b) { return a - b; });
     for(var i = 0; i < inserts.length; i++) {
         assert.equal(tree.get(i), inserts[i]);
     }
@@ -68,7 +68,7 @@ function rank(assert, tree_class) {
     remove.forEach(function(r) {
         tree.remove(r);
     });
-    inserts.sort((a, b) => a - b);
+    inserts.sort(function(a,b) { return a - b; });
     for(var i = 0; i < inserts.length; i++) {
         assert.equal(tree.rank(inserts[i]), i);
     }
