@@ -48,6 +48,32 @@ function minmax(assert, tree_class) {
     assert.equal(tree.max(), _.max(inserts));
 }
 
+function get(assert, tree_class) {
+    var inserts = loader.get_inserts(loader.load(SAMPLE_FILE));
+    var tree = loader.build_tree(tree_class, inserts);
+    var remove = inserts.splice(0, inserts.length / 10);
+    remove.forEach(function(r) {
+        tree.remove(r);
+    });
+    inserts.sort((a, b) => a - b);
+    for(var i = 0; i < inserts.length; i++) {
+        assert.equal(tree.get(i), inserts[i]);
+    }
+}
+
+function rank(assert, tree_class) {
+    var inserts = loader.get_inserts(loader.load(SAMPLE_FILE));
+    var tree = loader.build_tree(tree_class, inserts);
+    var remove = inserts.splice(0, inserts.length / 10);
+    remove.forEach(function(r) {
+        tree.remove(r);
+    });
+    inserts.sort((a, b) => a - b);
+    for(var i = 0; i < inserts.length; i++) {
+        assert.equal(tree.rank(inserts[i]), i);
+    }
+}
+
 function forward_it(assert, tree_class) {
     var inserts = loader.get_inserts(loader.load(SAMPLE_FILE));
     var tree = loader.build_tree(tree_class, inserts);
@@ -294,6 +320,8 @@ var TESTS = {
     dup: dup,
     nonexist: nonexist,
     minmax: minmax,
+    get: get,
+    rank: rank,
     forward_it: forward_it,
     forward_it_break: forward_it_break,
     reverse_it: reverse_it,
