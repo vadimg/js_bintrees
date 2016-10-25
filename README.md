@@ -68,6 +68,12 @@ Methods
 ### clear()
 > Removes all nodes from the tree.
 
+### get(index)
+> Get the item at the given index.
+
+### rank(item)
+> Get the index of the given item.
+
 ### find(item)
 > Returns node data if found, null otherwise.
 
