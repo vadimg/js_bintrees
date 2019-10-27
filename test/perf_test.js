@@ -6,6 +6,8 @@ var NUM_TIMES = 10;
 var BASE_DIR = __dirname + '/perf';
 var TREES = ['../test/arrtree', 'rbtree', 'bintree'];
 
+/* eslint no-console: 0 */
+
 function mean(arr) {
     var sum = 0;
     arr.forEach(function(n) {

@@ -1,18 +1,113 @@
-BinTree = (function(window) {
-var global = window;
-var require = function(name) {
-    var fn = require.m[name];
-    if (fn.mod) {
-        return fn.mod.exports;
-    }
+(function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.BinTree = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 
-    var mod = fn.mod = { exports: {} };
-    fn(mod, mod.exports);
-    return mod.exports;
+var TreeBase = require('./treebase');
+
+function Node(data) {
+    this.data = data;
+    this.left = null;
+    this.right = null;
+}
+
+Node.prototype.get_child = function(dir) {
+    return dir ? this.right : this.left;
 };
 
-require.m = {};
-require.m['./treebase'] = function(module, exports) {
+Node.prototype.set_child = function(dir, val) {
+    if(dir) {
+        this.right = val;
+    }
+    else {
+        this.left = val;
+    }
+};
+
+function BinTree(comparator) {
+    this._root = null;
+    this._comparator = comparator;
+    this.size = 0;
+}
+
+BinTree.prototype = new TreeBase();
+
+// returns true if inserted, false if duplicate
+BinTree.prototype.insert = function(data) {
+    if(this._root === null) {
+        // empty tree
+        this._root = new Node(data);
+        this.size++;
+        return true;
+    }
+
+    var dir = 0;
+
+    // setup
+    var p = null; // parent
+    var node = this._root;
+
+    // search down
+    while(true) {
+        if(node === null) {
+            // insert new node at the bottom
+            node = new Node(data);
+            p.set_child(dir, node);
+            this.size++;
+            return true;
+        }
+
+        // stop if found
+        if(this._comparator(node.data, data) === 0) {
+            return false;
+        }
+
+        dir = this._comparator(node.data, data) < 0;
+
+        // update helpers
+        p = node;
+        node = node.get_child(dir);
+    }
+};
+
+// returns true if removed, false if not found
+BinTree.prototype.remove = function(data) {
+    if(this._root === null) {
+        return false;
+    }
+
+    var head = new Node(undefined); // fake tree root
+    var node = head;
+    node.right = this._root;
+    var p = null; // parent
+    var found = null; // found item
+    var dir = 1;
+
+    while(node.get_child(dir) !== null) {
+        p = node;
+        node = node.get_child(dir);
+        var cmp = this._comparator(data, node.data);
+        dir = cmp > 0;
+
+        if(cmp === 0) {
+            found = node;
+        }
+    }
+
+    if(found !== null) {
+        found.data = node.data;
+        p.set_child(p.right === node, node.get_child(node.left === null));
+
+        this._root = head.right;
+        this.size--;
+        return true;
+    }
+    else {
+        return false;
+    }
+};
+
+module.exports = BinTree;
+
+
+},{"./treebase":2}],2:[function(require,module,exports){
 
 function TreeBase() {}
 
@@ -138,7 +233,9 @@ TreeBase.prototype.iterator = function() {
 TreeBase.prototype.each = function(cb) {
     var it=this.iterator(), data;
     while((data = it.next()) !== null) {
-        cb(data);
+        if(cb(data) === false) {
+            return;
+        }
     }
 };
 
@@ -146,7 +243,9 @@ TreeBase.prototype.each = function(cb) {
 TreeBase.prototype.reach = function(cb) {
     var it=this.iterator(), data;
     while((data = it.prev()) !== null) {
-        cb(data);
+        if(cb(data) === false) {
+            return;
+        }
     }
 };
 
@@ -244,116 +343,6 @@ Iterator.prototype._maxNode = function(start) {
 
 module.exports = TreeBase;
 
-};
-require.m['__main__'] = function(module, exports) {
 
-var TreeBase = require('./treebase');
-
-function Node(data) {
-    this.data = data;
-    this.left = null;
-    this.right = null;
-}
-
-Node.prototype.get_child = function(dir) {
-    return dir ? this.right : this.left;
-};
-
-Node.prototype.set_child = function(dir, val) {
-    if(dir) {
-        this.right = val;
-    }
-    else {
-        this.left = val;
-    }
-};
-
-function BinTree(comparator) {
-    this._root = null;
-    this._comparator = comparator;
-    this.size = 0;
-}
-
-BinTree.prototype = new TreeBase();
-
-// returns true if inserted, false if duplicate
-BinTree.prototype.insert = function(data) {
-    if(this._root === null) {
-        // empty tree
-        this._root = new Node(data);
-        this.size++;
-        return true;
-    }
-
-    var dir = 0;
-
-    // setup
-    var p = null; // parent
-    var node = this._root;
-
-    // search down
-    while(true) {
-        if(node === null) {
-            // insert new node at the bottom
-            node = new Node(data);
-            p.set_child(dir, node);
-            ret = true;
-            this.size++;
-            return true;
-        }
-
-        // stop if found
-        if(this._comparator(node.data, data) === 0) {
-            return false;
-        }
-
-        dir = this._comparator(node.data, data) < 0;
-
-        // update helpers
-        p = node;
-        node = node.get_child(dir);
-    }
-};
-
-// returns true if removed, false if not found
-BinTree.prototype.remove = function(data) {
-    if(this._root === null) {
-        return false;
-    }
-
-    var head = new Node(undefined); // fake tree root
-    var node = head;
-    node.right = this._root;
-    var p = null; // parent
-    var found = null; // found item
-    var dir = 1;
-
-    while(node.get_child(dir) !== null) {
-        p = node;
-        node = node.get_child(dir);
-        var cmp = this._comparator(data, node.data);
-        dir = cmp > 0;
-
-        if(cmp === 0) {
-            found = node;
-        }
-    }
-
-    if(found !== null) {
-        found.data = node.data;
-        p.set_child(p.right === node, node.get_child(node.left === null));
-
-        this._root = head.right;
-        this.size--;
-        return true;
-    }
-    else {
-        return false;
-    }
-};
-
-module.exports = BinTree;
-
-};
-return require('__main__');
-})(window);
+},{}]},{},[1])(1)
+});

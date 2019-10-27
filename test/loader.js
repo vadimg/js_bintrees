@@ -1,5 +1,4 @@
 var fs = require('fs');
-var _ = require('underscore');
 
 function load(filename) {
     var ret = [];
@@ -15,11 +14,11 @@ function load(filename) {
 }
 
 function get_inserts(tests) {
-    return _.select(tests, function(n) { return n > 0; });
+    return tests.filter(function(n) { return n > 0; });
 }
 
 function get_removes(tests) {
-    return _.select(tests, function(n) { return n < 0; });
+    return tests.filter(function(n) { return n < 0; });
 }
 
 function new_tree(tree_type) {
