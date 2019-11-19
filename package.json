@@ -19,7 +19,8 @@
   },
   "main": "./index.js",
   "scripts": {
-    "test": "nodeunit ./test/test_*.js && jshint lib/*.js index.js"
+    "test": "nodeunit ./test/test_*.js && jshint lib/*.js index.js",
+    "perf": "nodeunit ./test/perf_test.js"
   },
   "dependencies": {
   },
