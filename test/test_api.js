@@ -160,6 +160,8 @@ function switch_it(assert, tree_class) {
         for(var i = 0; i < after; i++) {
             items.push(it.next());
         }
+        
+        var data
 
         while((data = it.prev()) !== null) {
             items.push(data);
