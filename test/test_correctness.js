@@ -112,6 +112,16 @@ TREES.forEach(function(tree) {
           assert.done();
        };
     });
+
+    /* Tweaked behaviour: want reinserting a node that compares equal with an existing node to
+     * still replace the data */
+    test_funcs[tree + "_test_insert_matching"] = function(assert) {
+        var tree = new tree_class((a, b) => a.score - b.score);
+        tree.insert({score: 1, id: 1});
+        tree.insert({score: 1, id: 2});
+        assert.equal(tree.find({score: 1}).id, 2);
+        assert.done();
+    };
 });
 
 exports.correctness = test_funcs;
